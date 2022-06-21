@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
-
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+const userController = require("../controllers/user.controller")
+// Api path to register the user 
+router.post('/signup',userController.signUp);
+router.post('/signIn',userController.signIn);
 
 module.exports = router;
