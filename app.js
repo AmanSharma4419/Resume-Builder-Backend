@@ -5,8 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var session = require("express-session");
+const passport = require('passport');
 var app = express();
-
+app.use(session({secret:"cats"}))
+app.use(passport.initialize())
+app.use(passport.session())
 // configuring the dot env 
 require("dotenv").config();
 
@@ -21,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api/v1/users', usersRouter);
+app.use('/', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -30,6 +34,7 @@ app.use(function(req, res, next) {
 
 // data base connection 
 require("./utils/db.helper")
+require("./utils/google.auth.helper")
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -41,5 +46,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;

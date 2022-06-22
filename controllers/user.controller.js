@@ -1,6 +1,9 @@
 // Controller for listing all the avaliabe category for knowledgebase
 var User = require('../model/user');
 var messages =  require("../constants/messages");
+var auth = require("../utils/auth.helper");
+
+
 
 module.exports.signUp = async (req, res) => {
 const { email } = req.body;
@@ -26,19 +29,15 @@ const { email } = req.body;
 
 module.exports.signIn = async (req, res) => {
     const { password, email } = req.body;
-
     try {
       const existingUser =  await User.findOne({email:email})
       if (!existingUser)
         return res.json({ statusCode: 401,message: messages.USER_NOT_FOUND });
-
       if (!existingUser.confirmPassword(password)) {
         return res.json({statusCode: 401, message: messages.INCORRECT_PASSWORD });
       }
-
-    //   else {
-    //     return res.json({ statusCode: 400, message: messages.USER_NOT_FOUND })
-    //   }
+      const token = auth.generateToken(email);
+      return res.json({statusCode: 200, message: messages.LOGGED_IN_SUCESSFULLY,token:token });
     } catch (error) {
       return res.send({
         statusCode: 500,
@@ -46,3 +45,11 @@ module.exports.signIn = async (req, res) => {
       });
     }
   }
+
+module.exports.onFailure = (req,res) => {
+    res.send("Something went wrong")
+}
+
+module.exports.onPassing = (req,res) => {
+  res.send("hello world")
+}
