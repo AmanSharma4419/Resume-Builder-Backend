@@ -6,7 +6,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var session = require("express-session");
-const passport = require('passport');
+var passport = require('passport');
+var cors = require('cors')
 
 // mounting the express app
 var app = express();
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routing
+app.use(cors())
 app.use('/', indexRouter);
 app.use('/', usersRouter);
 

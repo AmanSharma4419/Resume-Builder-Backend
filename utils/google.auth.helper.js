@@ -5,7 +5,7 @@ var User = require('../model/user');
 passport.use(new GoogleStrategy({
     clientID:process.env.GOOGLECLIENTID,
     clientSecret:process.env.GOOGLECLIENTSECRET,
-    callbackURL: "http://localhost:3000/google/callback",
+    callbackURL: "https://resumebuilder-12.herokuapp.com/google/callback",
     passReqToCallback   : true
   },
   
