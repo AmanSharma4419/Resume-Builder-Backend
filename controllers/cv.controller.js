@@ -17,7 +17,7 @@ module.exports.createCV = async (req, res) => {
       }
     }
     
-    module.exports.listUserCv = async (req, res) => {
+module.exports.listUserCv = async (req, res) => {
         try {
          const userCv = await Cv.find({userId:req.params.userId})
         if(userCv) {
@@ -29,11 +29,11 @@ module.exports.createCV = async (req, res) => {
           return await res.send({
             statusCode: 500,
             message: messages.ERROR_OCCURED,
-          });
-        }
+        });
       }
+    }
       
-      module.exports.updateCv = async (req, res) => {
+module.exports.updateCv = async (req, res) => {
         console.log(req.body,req.params.userId,"in the con")
         try {
          const userCv = await Cv.findOneAndUpdate({userId:req.params.userId},req.body,{new:true})
@@ -47,10 +47,10 @@ module.exports.createCV = async (req, res) => {
             statusCode: 500,
             message: messages.ERROR_OCCURED,
           });
-        }
-      }
+         }
+ }
 
-      module.exports.deleteCv = async (req, res) => {
+module.exports.deleteCv = async (req, res) => {
         try {
          const userCv = await Cv.findOneAndDelete({userId:req.params.userId})
         if(userCv) {

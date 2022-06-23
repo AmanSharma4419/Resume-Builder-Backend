@@ -7,10 +7,13 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var session = require("express-session");
 const passport = require('passport');
+
+// mounting the express app
 var app = express();
 app.use(session({secret:"cats"}))
 app.use(passport.initialize())
 app.use(passport.session())
+
 // configuring the dot env 
 require("dotenv").config();
 
@@ -24,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// routing
 app.use('/', indexRouter);
 app.use('/', usersRouter);
 
@@ -42,7 +46,7 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+// render the error page
   res.status(err.status || 500);
   res.render('error');
 });
