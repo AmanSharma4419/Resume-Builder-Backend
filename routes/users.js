@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var passport = require("passport");
+var auth = require("../utils/auth.helper");
 
 const userController = require("../controllers/user.controller")
 const cvController = require("../controllers/cv.controller");
 const Cv = require('../model/cv');
 
 // Api path to register the user 
-router.post('/signup',userController.signUp);
+router.post('/signup', auth.verifyToken ,userController.signUp);
 
 // Api path to login the user 
 router.post('/signin',userController.signIn);
@@ -27,13 +28,13 @@ router.get('/auth/failure',userController.onFailure)
   
 router.get('/protected',userController.onPassing)
 
-router.post('/createCv',cvController.createCV)
+router.post('/createCv', auth.verifyToken,cvController.createCV)
 
-router.get('/listCv/:userId',cvController.listUserCv)
+router.get('/listCv/:userId', auth.verifyToken,cvController.listUserCv)
 
-router.post('/updateCv/:userId',cvController.updateCv)
+router.post('/updateCv/:userId', auth.verifyToken,cvController.updateCv)
 
-router.delete('/deleteCv/:userId',cvController.deleteCv)
+router.delete('/deleteCv/:userId',auth.verifyToken,cvController.deleteCv)
 
 
 module.exports = router;

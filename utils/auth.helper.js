@@ -10,7 +10,6 @@ const  verifyToken =  (req, res, next) =>  {
   if (token) {
     jwt.verify(token,process.env.JWTTOKENSECRET, (err, decoded) => {
       if (err)  res.json({statusCode: 401, message: messages.TOKEN_NOT_MATCHED });
-      console.log(decoded,"in the decoded")
       next();
     });
   } else {
