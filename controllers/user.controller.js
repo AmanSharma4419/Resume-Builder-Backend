@@ -36,7 +36,7 @@ module.exports.signIn = async (req, res) => {
         return await res.json({statusCode: 401, message: messages.INCORRECT_PASSWORD });
       }
       const token = auth.generateToken(email);
-      return await res.json({statusCode: 200, message: messages.LOGGED_IN_SUCESSFULLY,token:token });
+      return await res.json({statusCode: 200, message: messages.LOGGED_IN_SUCESSFULLY,token:token,data:existingUser });
     } catch (error) {
       return await res.send({
         statusCode: 500,
@@ -52,5 +52,6 @@ module.exports.onFailure = async (req,res) => {
 
 module.exports.onPassing = async (req,res) => {
   const token =  auth.generateToken(process.env.JWTTOKENSECRET);
+  res.cookie("token", token, { httpOnly: true })
   return await res.json({statusCode: 200, message: messages.LOGGED_IN_SUCESSFULLY,token:token });
 }

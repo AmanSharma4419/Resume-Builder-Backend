@@ -5,15 +5,16 @@ const  generateToken =  (payload) => {
   return jwt.sign(payload, process.env.JWTTOKENSECRET);
 }
 
-const  verifyToken =  (req, res, next) =>  {
+const  verifyToken =   (req, res, next) =>  {
   var token = req.headers.authorization || '';
   if (token) {
-    jwt.verify(token,process.env.JWTTOKENSECRET, (err, decoded) => {
-      if (err)  res.json({statusCode: 401, message: messages.TOKEN_NOT_MATCHED });
+   jwt.verify(token,process.env.JWTTOKENSECRET, (err, decoded) => {
+      if (err)   res.json({statusCode: 401, message: messages.TOKEN_NOT_MATCHED });
+      res.json({statusCode: 200, message: messages.TOKEN_MATCHED_SUCCESSFULLY,isVerify: true });
       next();
     });
   } else {
-    return res.json({statusCode: 401, message: messages.TOKEN_NOT_FOUND });
+      res.json({statusCode: 401, message: messages.TOKEN_NOT_FOUND });
   }
 }
 

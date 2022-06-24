@@ -7,7 +7,7 @@ const userController = require("../controllers/user.controller")
 const cvController = require("../controllers/cv.controller");
 
 // Api path to register the user 
-router.post('/signup', auth.verifyToken ,userController.signUp);
+router.post('/signup' ,userController.signUp);
 
 // Api path to login the user 
 router.post('/signin',userController.signIn);
@@ -33,5 +33,7 @@ router.post('/updateCv/:userId', auth.verifyToken,cvController.updateCv)
 // Api path to delete users the cv  
 router.delete('/deleteCv/:userId',auth.verifyToken,cvController.deleteCv)
 
+// Api path to verify the user jwt token
+router.get('/verify', auth.verifyToken)
 
 module.exports = router;
