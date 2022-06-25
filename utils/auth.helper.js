@@ -10,7 +10,6 @@ const  verifyToken =   (req, res, next) =>  {
   if (token) {
    jwt.verify(token,process.env.JWTTOKENSECRET, (err, decoded) => {
       if (err)   res.json({statusCode: 401, message: messages.TOKEN_NOT_MATCHED });
-      res.json({statusCode: 200, message: messages.TOKEN_MATCHED_SUCCESSFULLY,isVerify: true });
       next();
     });
   } else {
@@ -18,4 +17,18 @@ const  verifyToken =   (req, res, next) =>  {
   }
 }
 
-module.exports = { generateToken, verifyToken };
+const  verifyTokenForProtectedRoutes =   (req, res, next) =>  {
+  var token = req.headers.authorization || '';
+  if (token) {
+     jwt.verify(token,process.env.JWTTOKENSECRET, (err, decoded) => {
+    if (err)   res.json({statusCode: 401, message: messages.TOKEN_NOT_MATCHED });
+     res.json({statusCode: 200, message: messages.TOKEN_MATCHED_SUCCESSFULLY,isVerify: true });
+     
+    next();
+    });
+  } else {
+    return  res.json({statusCode: 200, message: messages.TOKEN_NOT_MATCHED });
+  }
+}
+
+module.exports = { generateToken, verifyToken,verifyTokenForProtectedRoutes };

@@ -28,12 +28,15 @@ router.post('/createCv', auth.verifyToken,cvController.createCV)
 router.get('/listCv/:userId', auth.verifyToken,cvController.listUserCv)
 
 // Api path to update users the cv  
-router.post('/updateCv/:userId', auth.verifyToken,cvController.updateCv)
+router.patch('/updateCv/:cvId', auth.verifyToken,cvController.updateCv)
 
 // Api path to delete users the cv  
-router.delete('/deleteCv/:userId',auth.verifyToken,cvController.deleteCv)
+router.delete('/deleteCv/:cvId',auth.verifyToken,cvController.deleteCv)
+
+// Api path to get  the cv by id
+router.get('/getCvById/:cvId', auth.verifyToken,cvController.getCvById)
 
 // Api path to verify the user jwt token
-router.get('/verify', auth.verifyToken)
+router.get('/verify', auth.verifyTokenForProtectedRoutes)
 
 module.exports = router;

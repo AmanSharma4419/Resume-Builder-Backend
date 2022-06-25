@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // cors
-var allowedOrigins = ['http://localhost:3001','http://localhost:3000','*'];
+var allowedOrigins = ['http://localhost:3001','http://localhost:3000'];
 app.use(cors({
   origin: function(origin, callback){
     if(!origin) return callback(null, true);
