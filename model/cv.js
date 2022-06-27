@@ -19,7 +19,6 @@ var cvSchema = new Schema(
 		},
 		city: {
 			type: String,
-			required: true
 		},
 		phoneNumber: {
 			type: Number,
@@ -35,7 +34,6 @@ var cvSchema = new Schema(
 		},
 		percentage: {
 			type: String,
-			required: true
 		},
 		orgName :  {
 			type: String,
@@ -54,16 +52,13 @@ var cvSchema = new Schema(
 			required: true
 		},
 		skills :  {
-			type: Array,
-			required: true
+			type: String,
 		},
 		projectLinks :  {
 			type: Array,
-			required: true
 		},
 		socialProfiles :  {
 			type: Array,
-			required: true
 		},
 		
 	},

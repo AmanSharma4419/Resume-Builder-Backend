@@ -22,7 +22,7 @@ router.get('/auth/failure',userController.onFailure)
 router.get('/protected',userController.onPassing)
 
 // Api path to create the cv  
-router.post('/createCv', auth.verifyToken,cvController.createCV)
+router.post('/createCv/:userId', auth.verifyToken,cvController.createCV)
 
 // Api path to get users the cv  
 router.get('/listCv/:userId', auth.verifyToken,cvController.listUserCv)
