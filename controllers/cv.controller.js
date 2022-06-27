@@ -67,7 +67,7 @@ module.exports.updateCv = async (req, res) => {
 
 module.exports.deleteCv = async (req, res) => {
         try {
-         const userCv = await Cv.findByIdAn({userId:req.params.cvId})
+         const userCv = await Cv.findByIdAndDelete(req.params.cvId)
         if(userCv) {
           return await res.json({ statusCode: 200, message: messages.CV_DELETED_SUCCESSFULLY })
         } else {
